@@ -13,9 +13,9 @@ This script performs a basic SSH brute force login attack on a specified target 
 
 - <b>Kali Linux</b>
 
-<h2>Video</h2>
+<h2>YouTube</h2>
 
-- <b>[YouTube: SSH Login Brute Force](https://youtu.be/XCmBGClGVog?si=_mvM63WKXkpFpV5j)</b>
+- <b>[SSH Login Brute Force](https://youtu.be/XCmBGClGVog?si=_mvM63WKXkpFpV5j)</b>
 
 <h2>Example SSH Brute Force Attempt</h2>
 
