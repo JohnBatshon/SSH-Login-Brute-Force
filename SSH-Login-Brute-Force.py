@@ -49,6 +49,11 @@
 # pip install pwntools
 #
 # ####################################################################################
+#
+# More information about pwntools & ssh can be found here:
+# https://docs.pwntools.com/en/stable/tubes/ssh.html
+#
+# ####################################################################################
 
 from pwn import *
 import paramiko
